@@ -176,7 +176,7 @@
         let ppid=document.querySelector('#productId')
         let pquantity=document.querySelector('#quantity')
 
-        let find=await fetch(`http://localhost:5500/product/search?q=${encodeURIComponent(inp.value)}`)
+        let find=await fetch(`https://billandinventory.onrender.com/product/search?q=${encodeURIComponent(inp.value)}`)
         let res=await find.json()
         dropdown.style.display="block"
         
@@ -201,7 +201,7 @@
                 inp.value=""
                 dropdown.style.display='none'
                 
-                let data=await fetch(`http://localhost:5500/product/search/${item.ProductId}`)
+                let data=await fetch(`https://billandinventory.onrender.com/product/search/${item.ProductId}`)
                 let prod=await data.json()
                 ppid.value=item.ProductId
                 pname.value=item.ProductName
@@ -221,7 +221,7 @@
 
         function handleSubmit(){
             
-            window.location.href="http://localhost:5500/product/entry"
+            window.location.href="https://billandinventory.onrender.com/product/entry"
         }
         
         

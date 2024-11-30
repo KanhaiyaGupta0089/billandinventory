@@ -238,14 +238,14 @@ const canvas=await html2canvas(content)
             },
             body:JSON.stringify(obj)
          }),
-        fetch("http://localhost:5500/user/day-book",{
+        fetch("https://billandinventory.onrender.com/user/day-book",{
         method:'POST',
         headers:{
             'Content-Type':'application/json'
         },
         body:JSON.stringify(dayObj)
     }),
-    fetch("http://localhost:5500/bill/create-finalbill",{
+    fetch("https://billandinventory.onrender.com/bill/create-finalbill",{
         method:'POST',
         headers:{
             'Content-Type':'application/json'
@@ -319,7 +319,7 @@ const canvas=await html2canvas(content)
         }
         
         
-        let mailer=await fetch("http://localhost:5500/bill/send-email",{
+        let mailer=await fetch("https://billandinventory.onrender.com/bill/send-email",{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'

@@ -279,7 +279,7 @@ const amount='<%=billAmount%>'
   // Convert canvas to a data URL (base64 string)
   
         
-        let response=await fetch("http://localhost:5500/bill/payment",{
+        let response=await fetch("https://billandinventory.onrender.com/bill/payment",{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
@@ -300,7 +300,7 @@ var options = {
     "description": "Product Transaction",
     "image": '/images/logo.png',
     "order_id":order.orderId,
-    "callback_url":"http://localhost:5500/bill/",
+    "callback_url":"https://billandinventory.onrender.com/bill/",
     "handler": async function (response){
         // alert(response.razorpay_payment_id);
         // alert(response.razorpay_order_id);
@@ -331,7 +331,7 @@ var options = {
         }
         
 
-        let msg=await fetch("http://localhost:5500/bill/send-message",{
+        let msg=await fetch("https://billandinventory.onrender.com/bill/send-message",{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
@@ -347,9 +347,9 @@ var options = {
             cmail:email,
             billimg:screenshot
         }
-        window.location.href="http://localhost:5500/bill/"   
+        window.location.href="https://billandinventory.onrender.com/bill/"   
         try{
-        let mailer=await fetch("http://localhost:5500/bill/send-email",{
+        let mailer=await fetch("https://billandinventory.onrender.com/bill/send-email",{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
@@ -395,7 +395,7 @@ rzp1.on('payment.failed', function (response){
     rzp1.open();
     // if(paymentDone){
     //     alert(paid)
-    //     let sendDayBook=await fetch("http://localhost:5500/user/day-book",{
+    //     let sendDayBook=await fetch("https://billandinventory.onrender.com/user/day-book",{
     //     method:'POST',
     //     headers:{
     //         'Content-Type':'application/json'
@@ -465,14 +465,14 @@ let cname=document.querySelector('#cname').value;
             },
             body:JSON.stringify(obj)
          }),
-        fetch("http://localhost:5500/user/day-book",{
+        fetch("https://billandinventory.onrender.com/user/day-book",{
         method:'POST',
         headers:{
             'Content-Type':'application/json'
         },
         body:JSON.stringify(dayObj)
     }),
-    fetch("http://localhost:5500/bill/create-finalbill",{
+    fetch("https://billandinventory.onrender.com/bill/create-finalbill",{
         method:'POST',
         headers:{
             'Content-Type':'application/json'
@@ -484,7 +484,7 @@ let cname=document.querySelector('#cname').value;
   
 //   if(paid){
 //         alert(paid)
-//         let sendDayBook=await fetch("http://localhost:5500/user/day-book",{
+//         let sendDayBook=await fetch("https://billandinventory.onrender.com/user/day-book",{
 //         method:'POST',
 //         headers:{
 //             'Content-Type':'application/json'
