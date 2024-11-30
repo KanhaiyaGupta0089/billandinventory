@@ -2,7 +2,7 @@ const udharModel=require('../models/udharSchema')
 const saveBillModel=require('../models/saveBillSchema')
 const dayBookModel=require('../models/dayBookSchema')
 const userModel=require('../models/user')
-const bcrypt=require('bcrypt')
+const bcrypt=require('bcryptjs')
 const showUdhar=(req,res)=>{
     res.render('udhar')
 }
@@ -150,6 +150,10 @@ const getEmpDetail=async(req,res)=>{
     
     res.json(empData)
 }
+
+const renderInventoryDashboard=(req,res)=>{
+    res.render('inventoryDashboard')
+}
 module.exports={
     showUdhar,
     handleUdhar,
@@ -163,6 +167,6 @@ module.exports={
     getAllDayData,
     addEmployee,
     renderEmpList,
-    getEmpDetail
-
+    getEmpDetail,
+    renderInventoryDashboard
 }

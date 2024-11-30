@@ -352,8 +352,8 @@ async function handleOnInput() {
             let inp = document.querySelector('#searchProduct');
             console.log(inp.value)
             if(inp.value!=""){
-            // let search = await fetch(`http://localhost:5500/product/search?q=${encodeURIComponent(inp.value)}`);
             let search = await fetch(`http://localhost:5500/product/search?q=${encodeURIComponent(inp.value)}`);
+            
             let tbody = document.querySelector('tbody');
             let ans = await search.json();
             tbody.innerHTML = "";
@@ -362,6 +362,7 @@ async function handleOnInput() {
             let resp=await category.json()
             console.log("res",resp)
             // respArray=resp
+            
             
               
             ans.forEach(async (item) => {
@@ -397,8 +398,8 @@ async function handleOnInput() {
                    
                     <td class="p-3">${stockIndicator}</td>
                     <td class="px-6 py-4">
-                <button onclick="openEditModal(${item.ProductId})" class="text-blue-500 hover:underline">Edit</button> |
-                <button class="text-red-500 hover:underline" onclick=${item.ProductId}>Delete</button>
+                <button onclick="openEditModal('${item.ProductId}')" class="text-blue-500 hover:underline">Edit</button> |
+                <button class="text-red-500 hover:underline" onclick=handleDelete('${item.ProductId}',this.parentElement)>Delete</button>
               </td>
              <hr>
                     
@@ -467,6 +468,7 @@ async function handleOnInput() {
       inFilter,
       outFilter
     }
+    console.log(filter)
     
   const query = new URLSearchParams(filter);
   
@@ -478,11 +480,14 @@ async function handleOnInput() {
   
   console.log(products);
    tbody.innerHTML=""
+   console.log(respArray)
 
   products.forEach(async (item) => {
-              const categ =respArray.find(cat => cat.name === item.ProductCategory);
+    console.log(item.ProductCategory+" ")
+              const categ =await respArray.find(cat => cat.name === item.ProductCategory);
              
               console.log(categ);
+              
               
                 let stockLevel = item.ProductQuantity;
                 let stockIndicator;
@@ -513,7 +518,7 @@ async function handleOnInput() {
                     <td class="p-3">${stockIndicator}</td>
                     <td class="px-6 py-4">
                 <button onclick="openEditModal(${item.ProductId})" class="text-blue-500 hover:underline">Edit</button> |
-                <button class="text-red-500 hover:underline">Delete</button>
+                <button class="text-red-500 hover:underline" onclick=handleDelete(${item.ProductId},this.parentElement)>Delete</button>
               </td>
              <hr>
                     
@@ -535,7 +540,7 @@ async function handleOnInput() {
     document.addEventListener('DOMContentLoaded',async ()=>{
        let category=await fetch("http://localhost:5500/product/all-category")
        let resp=await category.json()
-       console.log(resp);
+      //  console.log(resp);
        respArray=resp
        
        let select=document.querySelector('#productCategory')
@@ -583,7 +588,7 @@ async function handleOnInput() {
   
 
   
-  console.log(pageNo)
+  //console.log(pageNo)
 
   
     let obj={
@@ -633,8 +638,8 @@ async function handleOnInput() {
                    
                     <td class="p-3">${stockIndicator}</td>
                     <td class="px-6 py-4">
-                <button onclick="openEditModal(${item.ProductId})" class="text-blue-500 hover:underline">Edit</button>
-                <button class="text-red-500 hover:underline" onclick="handleDelete(${item.ProductId},this.parentElement)">Delete</button>
+                <button onclick="openEditModal('${item.ProductId}')" class="text-blue-500 hover:underline">Edit</button>
+                <button class="text-red-500 hover:underline" onclick="handleDelete('${item.ProductId}',this.parentElement)">Delete</button>
               </td>
              <hr>
                     
@@ -687,8 +692,8 @@ function displayData(arr,resp){
                    
                     <td class="p-3">${stockIndicator}</td>
                     <td class="px-6 py-4">
-                <button onclick="openEditModal(${item.ProductId})" class="text-blue-500 hover:underline">Edit</button> |
-                <button class="text-red-500 hover:underline" onclick=handleDelete(${item.ProductId},this.parentElement())>Delete</button>
+                <button onclick="openEditModal('${item.ProductId}')" class="text-blue-500 hover:underline">Edit</button> |
+                <button class="text-red-500 hover:underline" onclick=handleDelete('${item.ProductId}',this.parentElement())>Delete</button>
               </td>
              <hr>
                     
@@ -755,10 +760,13 @@ async function handleDelete(productId,trow){
   
   let p1=trow.parentElement
   let p2=trow.parentElement.parentElement
-  
+  p2.removeChild(p1);
+   console.log(p2);
   
   let delProd=await fetch(`http://localhost:5500/product/delete2/${productId}`)
   let resp=await delProd.json();
+
+
 
   
 }

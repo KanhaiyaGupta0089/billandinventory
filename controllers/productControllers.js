@@ -1,5 +1,5 @@
 const upload = require("../multer");
-const { MongoQueryFilter } = require('mongo-query-filter');
+
 const productModel = require("../models/ProductSchema");
 const billModel = require("../models/billSchema");
 const saveBillModel=require('../models/saveBillSchema')
@@ -382,12 +382,14 @@ const filterProduct=async(req,res)=>{
   inFilter=JSON.parse(inFilter)
   outFilter=JSON.parse(outFilter)
   let prodQty=""
-  if(inFilter){
-    prodQty={$gt:0}
+  if(inFilter&&outFilter){
+    prodQty={$gte:0}
   }
   else if(!outFilter&&!inFilter){
     prodQty={$gte:0}
   }
+  else if(inFilter)
+    prodQty={$gt:0}
   else{
   prodQty=0
   }
