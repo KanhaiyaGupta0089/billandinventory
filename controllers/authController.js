@@ -19,13 +19,13 @@ const createAdmin = async () => {
                 role: 'admin'
             })
             await newAdmin.save() 
-            console.log(newAdmin)
+            //console.log(newAdmin)
         } else { 
-            console.log("Admin Already exist!")
+            //console.log("Admin Already exist!")
         }
         
    } catch (err) {
-       console.log('Internal Server error!')
+       //console.log('Internal Server error!')
        console.error(err)
     }
 }
@@ -66,10 +66,10 @@ const registerUser = async (req, res) => {
 
 
 const loginUser = async (req, res) => {
-    console.log(req.body)
+    //console.log(req.body)
     try {
         const { email, password } = req.body;
-        console.log(req.body)
+        //console.log(req.body)
         const createdUser = await User.findOne({ email })
         if (!createdUser) {
             return res.status(404).json({
