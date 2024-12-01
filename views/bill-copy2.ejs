@@ -248,8 +248,8 @@
     let limit='<%=limit%>'
 let pageNo='<%=currPage%>'
     let cg=<%-JSON.stringify(categoriesWithColors)%>
-    console.log(typeof cg);
-    console.log(cg);
+    //console.log(typeof cg);
+    //console.log(cg);
     
     
     
@@ -310,12 +310,12 @@ doc.autoTable({
             .filter((_, index) => index !== 5) // Exclude 4th column
                 .map((cell) => cell.innerText)
         );
-        console.log(filteredData);
+        //console.log(filteredData);
         
 
         // Convert table to a worksheet
         const worksheet = XLSX.utils.aoa_to_sheet(filteredData);
-        console.log(worksheet);
+        //console.log(worksheet);
         
 
         
@@ -350,7 +350,7 @@ async function handleOnInput() {
          let tcontent=document.querySelector('tbody').innerHTML
          
             let inp = document.querySelector('#searchProduct');
-            console.log(inp.value)
+            //console.log(inp.value)
             if(inp.value!=""){
             let search = await fetch(`https://billandinventory.onrender.com/product/search?q=${encodeURIComponent(inp.value)}`);
             
@@ -360,7 +360,7 @@ async function handleOnInput() {
  
             let category=await fetch("https://billandinventory.onrender.com/product/all-category")
             let resp=await category.json()
-            console.log("res",resp)
+            //console.log("res",resp)
             // respArray=resp
             
             
@@ -368,7 +368,7 @@ async function handleOnInput() {
             ans.forEach(async (item) => {
               const categ =resp.find(cat => cat.name === item.ProductCategory);
              
-              console.log(categ);
+              //console.log(categ);
               
                 let stockLevel = item.ProductQuantity;
                 let stockIndicator;
@@ -461,14 +461,14 @@ async function handleOnInput() {
     const inFilter = document.getElementById("inStockFilter").checked;
     const outFilter = document.getElementById("outStockFilter").checked;
     let tbody=document.querySelector('tbody')
-    console.log(category,priceRange,inFilter,outFilter)
+    //console.log(category,priceRange,inFilter,outFilter)
     const filter={
       category,
       priceRange:priceRange,
       inFilter,
       outFilter
     }
-    console.log(filter)
+    //console.log(filter)
     
   const query = new URLSearchParams(filter);
   
@@ -478,15 +478,15 @@ async function handleOnInput() {
   const products = await response.json();
 
   
-  console.log(products);
+  //console.log(products);
    tbody.innerHTML=""
-   console.log(respArray)
+   //console.log(respArray)
 
   products.forEach(async (item) => {
-    console.log(item.ProductCategory+" ")
+    //console.log(item.ProductCategory+" ")
               const categ =await respArray.find(cat => cat.name === item.ProductCategory);
              
-              console.log(categ);
+              //console.log(categ);
               
               
                 let stockLevel = item.ProductQuantity;
@@ -531,27 +531,27 @@ async function handleOnInput() {
 
 
       
-      console.log("Filters Applied");
+      //console.log("Filters Applied");
     }
 
     function clearFilters() {
-      console.log("Filters Cleared");
+      //console.log("Filters Cleared");
     }
     document.addEventListener('DOMContentLoaded',async ()=>{
        let category=await fetch("https://billandinventory.onrender.com/product/all-category")
        let resp=await category.json()
-      //  console.log(resp);
+      //  //console.log(resp);
        respArray=resp
        
        let select=document.querySelector('#productCategory')
-       console.log(select);
+       //console.log(select);
        let opt=document.createElement('option')
        opt.innerHTML="All"
        
        select.appendChild(opt)
        
        let select2=document.querySelector('#categoryFilter')
-       console.log(select2);
+       //console.log(select2);
        let opt2=document.createElement('option')
        opt2.innerHTML="All"
        
@@ -576,7 +576,7 @@ async function handleOnInput() {
        
        
        
-      //  console.log(select);
+      //  //console.log(select);
        
     
     })
@@ -588,7 +588,7 @@ async function handleOnInput() {
   
 
   
-  //console.log(pageNo)
+  ////console.log(pageNo)
 
   
     let obj={
@@ -602,13 +602,13 @@ async function handleOnInput() {
     
 
     let data=await resp.json()
-    console.log(data)
+    //console.log(data)
 
 
     data.forEach(async (item) => {
               const categ =respArray.find(cat => cat.name === item.ProductCategory);
              
-              console.log(categ);
+              //console.log(categ);
               
                 let stockLevel = item.ProductQuantity;
                 let stockIndicator;
@@ -661,7 +661,7 @@ function displayData(arr,resp){
     if(resp){
               const categ =resp.find(cat => cat.name === item.ProductCategory);
              
-              console.log(categ);
+              //console.log(categ);
     }
               
                 let stockLevel = item.ProductQuantity;
@@ -731,7 +731,7 @@ function displayData(arr,resp){
   //   image,
   //   ProductCategory
   // }
-  // console.log(addObj)
+  // //console.log(addObj)
 
   const form=document.getElementById('productForm');
   if(formType=="Add Product")
@@ -751,7 +751,7 @@ form.action='/product/update2'
   //   body:JSON.stringify(addObj)
   // })
   // let addProdResp=await addProd.json()
-  // console.log(addProdResp)
+  // //console.log(addProdResp)
 
 
 }
@@ -761,7 +761,7 @@ async function handleDelete(productId,trow){
   let p1=trow.parentElement
   let p2=trow.parentElement.parentElement
   p2.removeChild(p1);
-   console.log(p2);
+   //console.log(p2);
   
   let delProd=await fetch(`https://billandinventory.onrender.com/product/delete2/${productId}`)
   let resp=await delProd.json();
