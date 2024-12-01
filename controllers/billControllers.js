@@ -130,7 +130,7 @@ const printBill = async (req, res) => {
     // });
     // console.log(ans);
 
-    res.render("finalbillCopy copy", {
+    res.render("finalBillCopy copy", {
       data,
       billId,
       billAmount,
