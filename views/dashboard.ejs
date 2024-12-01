@@ -250,47 +250,56 @@
       //Fetching all udhar khata for its length
       let data=await fetch("https://billandinventory.onrender.com/user/all-udhar")
       let resp=await data.json()
-      console.log(resp)
+      //console.log(resp)
       udhar.textContent=resp.length
       //counting all product in the inventory
       let count=await fetch("https://billandinventory.onrender.com/product/count-product")
       let countResp=await count.json()
-      console.log(countResp)
+      //console.log(countResp)
       proCount.textContent=countResp.count;
       
       
       let bill=await fetch("https://billandinventory.onrender.com/bill/bill-count") 
       let billCount=await bill.json()
-      // console.log(billCount)
+      //console.log(billCount)
       invoice.textContent=billCount.billCount
       psell.textContent=billCount.pselled[0].totalProductsAcrossBills
       let proArray=billCount.pselled[0].totalProductsById
       proArray.sort((a,b)=>{
         return b.count-a.count
       })
-      // console.log(proArray)
+      // //console.log(proArray)
       let pname,pimage,pquantity
       let topArr=Array.from(topselling)
+      //console.log(topArr)
       
       
-      for(i=0;i<2;i++){
-        let pid=proArray[i].productId
-        let data=await fetch(`https://billandinventory.onrender.com/product/search/${pid}`)
-        let pdata=await data.json()
-        if(!pdata){
-          let pid2=proArray[i+1].productId
-          let data=await fetch(`https://billandinventory.onrender.com/product/search/${pid2}`)
-        let pdata=await data.json()
-          
-        }
-        console.log(pdata)
+
+
+      let c=0;
+      let pdata=""
+      while(c!=2){
+        let pid=proArray[c].productId
+        let data=await fetch(`http://localhost:5500/product/search/${pid}`)
+        
+        
+        if(!data.ok){
+          proArray.splice(c,1)
+          //console.log(proArray)
+        }else{
+        pdata=await data.json()
+        //console.log(pdata)
+           
+        
+        
+        
           let {ProductName,ProductImage,ProductQuantity}=pdata
           
-          topArr[i].querySelector('img').src=ProductImage
-          topArr[i].querySelector('.prodname').textContent=ProductName
-          topArr[i].querySelector('.prodqty').textContent=`StockLeft:${ProductQuantity}`
-
-
+          topArr[c].querySelector('img').src=ProductImage
+          topArr[c].querySelector('.prodname').textContent=ProductName
+          topArr[c].querySelector('.prodqty').textContent=`StockLeft:${ProductQuantity}`
+               c++;
+        }
           
       }
       // let obj={
@@ -306,15 +315,15 @@
        
       let dayData=await fetch("https://billandinventory.onrender.com/user/day-data")
       let dayBook=await dayData.json()
-      console.log(dayBook)
+      //console.log(dayBook)
       let tamount=0
       let tproduct=0
       dayBook.map((bill)=>{
         tamount+=Number(bill.Amount)
         tproduct+=Number(bill.ProductCount)
       })
-      console.log(tamount)
-      console.log(dayBook.length)
+      //console.log(tamount)
+      //console.log(dayBook.length)
       daysell.textContent=`₹ ${tamount}`
       tprod.textContent=tproduct
       tinvo.textContent=dayBook.length
