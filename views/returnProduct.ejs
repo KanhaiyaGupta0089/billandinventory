@@ -118,7 +118,7 @@
       returnProducts.push(productData);
 
       // Log the updated returnProducts array
-      console.log('Return Products:', returnProducts);
+      //console.log('Return Products:', returnProducts);
 
       // Reset the row's inputs
       
@@ -202,7 +202,7 @@ let returnObj={
       
 
       // Simulate sending data to the backend
-      console.log('Submitting Return Data:', {
+      //console.log('Submitting Return Data:', {
         billId,
         returnProducts,
       });
@@ -220,7 +220,7 @@ let returnObj={
       inputs.forEach(input => {
         productData[input.name] = input.value.trim();
       });
-      console.log(productData)
+      //console.log(productData)
       
 
       // Validate inputs
@@ -232,9 +232,9 @@ let returnObj={
       // Add product to the returnProducts array
 
       let index=returnProducts.indexOf(productData)
-      console.log(index)
+      //console.log(index)
       returnProducts.splice(index,1)
-      console.log(returnProducts)
+      //console.log(returnProducts)
 
       inputs.forEach((inp)=>inp.value="")
 
