@@ -148,7 +148,7 @@ let pollInterval;
     let cuname=document.querySelector('#cname').value;
         
         
-        // console.log(dayObj,paid)
+        // //console.log(dayObj,paid)
     
     
   
@@ -181,12 +181,12 @@ let pollInterval;
       let span=document.createElement('span')
       span.innerHTML=value
       span.id=e.target.id
-      console.log(span)
+      //console.log(span)
       
       
       p.innerHTML=`<b>${p.querySelector('b').textContent}</b>`
       p.appendChild(span)
-      console.log(p)
+      //console.log(p)
 
     }
   
@@ -197,7 +197,7 @@ let pollInterval;
     let cname=document.querySelector('#cname').innerHTML;
   const mobo=document.querySelector('#cnumber')
   // const customer=document.querySelector('.customer')
-  console.log(cname,mobo)
+  //console.log(cname,mobo)
 
   const content = document.querySelector('body'); // Select the content to capture
  let btn=document.querySelectorAll('.no-print')
@@ -224,7 +224,7 @@ const canvas=await html2canvas(content)
             "billAmount":amount,
             "productCount":data.length
         }
-        // console.log(dayObj)
+        // //console.log(dayObj)
         let billObj={
             billAmount:amount,
             data,
@@ -262,7 +262,7 @@ const canvas=await html2canvas(content)
     const data2=await resp1.json();
     const data3=await resp2.json();
       
-    console.log('Bill updated successfully:', data1);
+    //console.log('Bill updated successfully:', data1);
   
 
 
@@ -281,7 +281,7 @@ const canvas=await html2canvas(content)
     let modal=document.querySelector('#payment-modal')
 
     const amount = Number(document.querySelector('.tamt').textContent.split('₹')[1]);
-    console.log(amount)
+    //console.log(amount)
     const customerName = document.querySelector('.name').textContent;  // Replace with actual customer name
 
     // Create a UPI payment using Razorpay (or another gateway)
@@ -291,7 +291,7 @@ const canvas=await html2canvas(content)
       body: JSON.stringify({ amount, customerName })
     });
     const data = await response.json(); 
-    console.log(data)
+    //console.log(data)
     
     if (data.success) 
     {
@@ -304,7 +304,7 @@ const canvas=await html2canvas(content)
       image: '/images/logo.png',
       handler: async function (response) {
         // Handle payment success
-        console.log('Payment successful:', response);
+        //console.log('Payment successful:', response);
         startPolling(response.razorpay_payment_id)
         window.location.href='/bill/'
         let cname=document.querySelector('#cname').innerHTML;
@@ -328,7 +328,7 @@ const canvas=await html2canvas(content)
         })
         
         let mailResp=await mailer.json()
-        console.log(mailResp)     
+        //console.log(mailResp)     
 
       },
       prefill: {
@@ -374,7 +374,7 @@ const canvas=await html2canvas(content)
     if (result.success){
       clearInterval(pollInterval)
       document.getElementById('paymentStatus').innerText = "Payment Verified! Thank you for your purchase.";
-      console.log(document.getElementById('paymentStatus'))
+      //console.log(document.getElementById('paymentStatus'))
       alert("payment succesfull")
       
     } else {
