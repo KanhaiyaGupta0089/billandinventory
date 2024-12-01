@@ -271,7 +271,7 @@ window.addEventListener('load', async () => {
                       body:JSON.stringify(obj)
                     })
                     let updatedResp=await updatedUdhar.json()
-                    console.log(updatedResp)
+                    ////console.log(updatedResp)
                     
                     
                      
@@ -283,11 +283,11 @@ window.addEventListener('load', async () => {
             btn.addEventListener('click',async function() {
                 // Find the corresponding row
                 const row = this.closest('tr');
-                // console.log(row)
+                // ////console.log(row)
                 const cells = row.querySelectorAll('.editable');
-                console.log(cells)
+                ////console.log(cells)
                 let customerName=cells[1].textContent
-                console.log(cells[1].textContent)
+                ////console.log(cells[1].textContent)
                 let udharDelete=await fetch(`https://billandinventory.onrender.com/user/delete-khata/`,{
                   method:'DELETE',
                   headers:{
@@ -296,7 +296,7 @@ window.addEventListener('load', async () => {
                   body:JSON.stringify({cname:customerName})
                 })
                 let resp=await udharDelete.json()
-                console.log(resp)
+                ////console.log(resp)
                 tbody.removeChild(row)
 
                 
