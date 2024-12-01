@@ -57,17 +57,17 @@ const createBill = async (req, res) => {
     ProductPrice,
     ProductQuantity
   });
-  console.log(createdProduct);
+  ////console.log(createdProduct);
   res.send("bill inserted");
 }
 };
 const deleteBill = async (req, res) => {
   let data = await billModel.deleteMany({});
-  console.log(data);
+  ////console.log(data);
   return res.json({ deletedData: data });
 };
 const saveBillImage = async (req, res) => {
-  //  console.log(req.body.image)
+  //  ////console.log(req.body.image)
   let { screenshot, mobo, customer } = req.body;
   let bill = await saveBillModel.find({}).sort({ _id: -1 }).limit(1);
   let resbill = await saveBillModel.findByIdAndUpdate(
@@ -79,7 +79,7 @@ const saveBillImage = async (req, res) => {
     }
   );
   let bill2 = await saveBillModel.find({}).sort({ _id: -1 }).limit(1);
-  // console.log("bill is",bill2)
+  // ////console.log("bill is",bill2)
   if (!resbill) {
     return res.status(404).json({ error: "Bill not found" });
   }
@@ -91,7 +91,7 @@ const showBillImage = (req, res) => {
   res.render("showImage");
 };
 const getBillImage = async (req, res) => {
-  //  console.log(req.query.q)
+  //  ////console.log(req.query.q)
   let data = await saveBillModel.find({ BillId: req.query.q });
 
   res.json({ ans: data });
@@ -100,10 +100,10 @@ const printBill = async (req, res) => {
   
 
   let data = await billModel.find();
-  console.log(data);
+  ////console.log(data);
   let res2=await fetch("http://localhost:5500/bill/billdelete")
   let ans=await res2.json();
-  console.log(ans);
+  ////console.log(ans);
   
 
   if (data.length > 0) {
@@ -117,7 +117,7 @@ const printBill = async (req, res) => {
     let billId = "B0";
 
     billId = billId.slice(0, 1) + Number(save.length+1);
-    console.log(billId);
+    ////console.log(billId);
 
     // let ans = await saveBillModel.create({
     //   BillId: billId,
@@ -128,7 +128,7 @@ const printBill = async (req, res) => {
     //   })),
     //   BillAmount: billAmount,
     // });
-    // console.log(ans);
+    // ////console.log(ans);
 
     res.render("finalBillCopy copy", {
       data,
@@ -188,7 +188,7 @@ const sendEmail = async (req, res) => {
   });
   doc.end();
   writeStream.on("finish", () => {
-    console.log("PDF created successfully:", outputPdfPath);
+    ////console.log("PDF created successfully:", outputPdfPath);
   });
 
   let transporter = nodemailer.createTransport({
@@ -219,7 +219,7 @@ const sendEmail = async (req, res) => {
       console.error("Error occurred:", err);
       res.status(500).json({ error: err });
     } else {
-      console.log("Email sent successfully:", info.response);
+      ////console.log("Email sent successfully:", info.response);
       res.status(200).json({ success: info.response });
     }
   });
@@ -233,7 +233,7 @@ const sendMessage = async (req, res) => {
       from: "+1 412 357 2287", // Twilio number
       to: `+91${phone}`, // Receiver's number (must be verified in trial mode)
     });
-    console.log(`Message sent with SID: ${message.sid}`);
+    ////console.log(`Message sent with SID: ${message.sid}`);
     return res.json({ sid: message.sid });
   } catch (err) {
     console.error(`Failed to send message: ${err.message}`);
@@ -283,7 +283,7 @@ const getBillCount = async (req, res) => {
       },
     },
   ]);
-  console.log(result);
+  ////console.log(result);
 
   res.json({ billCount: bill, pselled: result });
 };
@@ -300,7 +300,7 @@ const createFinalBill=async (req,res)=>{
     })),
     BillAmount: billAmount,
   });
-  console.log(ans);
+  ////console.log(ans);
   res.status(200).json(ans);
 }catch(err){
   console.error(err)
@@ -311,13 +311,13 @@ const createFinalBill=async (req,res)=>{
 
 const createUpiPayment=async(req,res)=>{
   const { amount, customerName } = req.body;
-console.log(req.body) 
+////console.log(req.body) 
   try {
     // Create order for payment
     
     let upiId='test@upi'
     const upiLink = `upi://pay?pa=${upiId}&pn=${customerName}&am=${amount}&cu=INR`;
-    console.log(upiLink)
+    ////console.log(upiLink)
     const qrCode=await QRCode.toDataURL(upiLink)
     
 
@@ -353,13 +353,13 @@ console.log(req.body)
 
 const verifyPayment=async(req,res)=>{
   const { paymentId,amount } = req.body;
-  console.log(req.body)
+  ////console.log(req.body)
 
   try {
     // Fetch payment details from Razorpay API
     // const paymentDetails = await razorpay.payments.fetch(paymentId);
     let capturedPayment = await razorpay.payments.capture(paymentId, amount);
-     console.log(capturedPayment.status)
+     ////console.log(capturedPayment.status)
     // Check if the payment is successful
     if (capturedPayment.status === 'captured') {
       res.json({ success: true });
