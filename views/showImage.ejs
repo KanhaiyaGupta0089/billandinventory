@@ -59,7 +59,7 @@
     let data=await fetch(`/bill/showimage?q=${encodeURIComponent(bill_id)}`);
     let res=await data.json();
     
-    console.log(res.ans)
+    //console.log(res.ans)
     let div=document.querySelector('.container')
     res.ans.map((item)=>{
 
