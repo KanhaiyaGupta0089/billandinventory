@@ -8,9 +8,9 @@ const showUdhar=(req,res)=>{
 }
 const handleUdhar=async (req,res)=>{
     let {customerName,date,billAmount,CustomerEmail,BillId,MobileNumber}=req.body;
-    console.log(req.body)
+    //console.log(req.body)
     let products=await saveBillModel.findOne({BillId})
-    console.log(products)
+    //console.log(products)
     if(!products)
         return res.redirect("/user/udhar")
     
@@ -26,7 +26,7 @@ const handleUdhar=async (req,res)=>{
         
     })
     let savedData=await udhar.save();
-    console.log(savedData) 
+    //console.log(savedData) 
     
     res.redirect('/user/udhar-khatas')
 } 
@@ -73,14 +73,14 @@ const renderDayBook=(req,res)=>{
 const saveDayBook=async (req,res)=>{
     try{
     let{productCount,customerName,billAmount}=req.body;
-    console.log(req.body)
+    //console.log(req.body)
     let addDayData=new dayBookModel({
         CustomerName:customerName,
         Amount:Number(billAmount),
         ProductCount:productCount
     })
     let saveDayData=await addDayData.save()
-    console.log(saveDayData)
+    //console.log(saveDayData)
 
     res.json(saveDayData)
 }catch(err){
@@ -93,11 +93,11 @@ const getAllDayData=async(req,res)=>{
     try{
         
     // let allData=await dayBookModel.find({Date:new Date().toDateString()})
-    // console.log(allData)
+    // //console.log(allData)
     const today = new Date();
 today.setHours(0, 0, 0, 0);
     let billData=await saveBillModel.find({BillDate:{$gte:today}})
-    console.log(billData)
+    //console.log(billData)
     
 
     let allData=[]
@@ -141,7 +141,7 @@ const addEmployee=async (req,res)=>{
 
 
     })
-    console.log(empAdd);
+    //console.log(empAdd);
     res.json(empAdd)
      
 }
