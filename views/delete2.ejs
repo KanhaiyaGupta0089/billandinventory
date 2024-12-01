@@ -57,7 +57,7 @@
         }
         let data=await fetch(`/product/search?q=${encodeURIComponent(inp.value)}`)
         let res=await data.json();
-        console.log(res);
+        //console.log(res);
         
         cont.innerHTML='';
         if(res.length>0){
@@ -75,13 +75,13 @@
             del.classList.add('btn')
             elem.appendChild(del)
             del.onclick=async function(e){
-                console.log(e);
+                //console.log(e);
                 elem.style.textDecoration='line-through'
                 elem.style.textDecorationColor='red'
                 elem.style.textDecorationThickness='3px'
                  let data=await fetch(`/product/delete?q=${encodeURIComponent(entry.ProductName)}`)
                  let res=await data.json();
-                 console.log(res);
+                 //console.log(res);
                  inp.value=""
                  let p=document.createElement('p')
                  p.innerText=res;
