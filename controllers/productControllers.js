@@ -8,7 +8,7 @@ const http = require("http");
 const {client}=require('../reddis')
 const { Parser } = require('json2csv');
 const createProduct = async (req, res) => {
-  console.log(req.body)
+  //console.log(req.body)
   
   // var opts = {
   //     errorCorrectionLevel: 'H',
@@ -21,12 +21,12 @@ const createProduct = async (req, res) => {
   //     }
   //   }
 
-  //  console.log(req.file)
-  //  console.log(req.body)
+  //  //console.log(req.file)
+  //  //console.log(req.body)
   let ProductQr = await QRCode.toDataURL(req.body.ProductId);
-  //    console.log(ProductQr)
+  //    //console.log(ProductQr)
 let ProductImage = req.file.path;
-console.log(ProductImage)
+//console.log(ProductImage)
   
   let {
     ProductId,
@@ -57,7 +57,7 @@ console.log(ProductImage)
     ProductQuantity,
     ProductCategory,
   });
-  console.log(createdProduct);
+  //console.log(createdProduct);
   // res.send("data inserted")
   req.flash("success", "Product Added Succesfully");
 
@@ -74,7 +74,7 @@ console.log(ProductImage)
 // await client.set(key, JSON.stringify(products));
 
 
-// console.log(`Updated inventory:`, products);
+// //console.log(`Updated inventory:`, products);
   // res.redirect("/");
   res.redirect("/product/entry")
 };
@@ -97,8 +97,8 @@ const showProducts = async (req, res) => {
   
 
   
-  //  console.log(ans);
-  //  console.log(ans.ProductImage)
+  //  //console.log(ans);
+  //  //console.log(ans.ProductImage)
  
 
   const documentCount = await productModel.countDocuments();
@@ -112,7 +112,7 @@ const showProducts = async (req, res) => {
     
 }));
 
-   console.log(categoriesWithColors)
+   //console.log(categoriesWithColors)
   res.render("bill-copy2", {
     ans,
     pagecount: Math.ceil(documentCount / limit),
@@ -178,7 +178,7 @@ const deleteProduct = async (req, res) => {
 
 const deleteProduct2 = async (req, res) => {
   let deleteTerm = req.params.id;
-  console.log(deleteTerm)
+  //console.log(deleteTerm)
   try {
     let deletedResult = await productModel.findOneAndDelete({ProductId:deleteTerm},{new:true})
     res.send(deletedResult);
@@ -197,10 +197,10 @@ const renderUpdate = (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     let data = req.body;
-    console.log(data);
+    //console.log(data);
     let img = "";
     if (req.file != undefined || req.file != null) img = req.file.path;
-    console.log(img);
+    //console.log(img);
 
     let ProductQr = await QRCode.toDataURL(req.body.productId);
 
@@ -225,7 +225,7 @@ const updateProduct = async (req, res) => {
 
     res.redirect("/product/update");
   } catch (err) {
-    console.log(err);
+    //console.log(err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -233,10 +233,10 @@ const updateProduct = async (req, res) => {
 const updateProduct2 = async (req, res) => {
   try {
     let data = req.body;
-    console.log(data);
+    //console.log(data);
     let img = "";
     if (req.file != undefined || req.file != null) img = req.file.path;
-    console.log(img);
+    //console.log(img);
 
     let ProductQr = await QRCode.toDataURL(req.body.ProductId);
 
@@ -261,7 +261,7 @@ const updateProduct2 = async (req, res) => {
 
     res.redirect("/product/entry");
   } catch (err) {
-    console.log(err);
+    //console.log(err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -272,18 +272,18 @@ const searchProductById = async (req, res) => {
     let prod = await productModel.findOne({ ProductId: pid });
     res.json(prod);
   } catch (err) {
-    console.log(err);
+    //console.log(err);
     res.status(500).send("internal Server error");
   }
 };
 
 const sortDropdown=async (req,res)=>{
   let obj=JSON.parse(req.params.obj);
-  console.log(obj)
+  //console.log(obj)
   let {field,order,limit,page}=obj
   
   let skip=(page-1)*limit
-  console.log(skip)
+  //console.log(skip)
   
   
   let data=await productModel.find({}).skip(skip).limit(limit);
@@ -311,21 +311,21 @@ const returnProduct=async (req,res)=>{
   let {billId,returnProducts}=req.body;
   let returnAmt=0
   
-  console.log(req.body)
+  //console.log(req.body)
   let i=0;
   try{
     const bill=await saveBillModel.findOne({BillId:billId})
-    console.log(bill)
+    //console.log(bill)
     if (!bill) {
       return res.status(404).json({ message: 'No matching bill or products found!' });
     }
     returnProducts.forEach((element) => {
       let {productId,productQuantity}=element;
       productQuantity=Number(productQuantity)
-      console.log(productId,typeof productQuantity)
-      // console.log(bill.Products)
+      //console.log(productId,typeof productQuantity)
+      // //console.log(bill.Products)
       let product=bill.Products.find((item)=>item.ProductId==productId)
-      console.log(product)
+      //console.log(product)
       if(product){
         
 
@@ -344,7 +344,7 @@ const returnProduct=async (req,res)=>{
       
     });
     await bill.save()
-    console.log(returnAmt)
+    //console.log(returnAmt)
       res.status(200).json({ message: `Products returned successfully! and return Amount = ${returnAmt}Rs` });
      
       
@@ -360,7 +360,7 @@ const returnProduct=async (req,res)=>{
 
 const getAllCategory=async (req,res)=>{
   let category=await productModel.distinct('ProductCategory') 
-  console.log(category)
+  //console.log(category)
 
   let sendCateg=category.map((elem)=>({
         name:elem,
@@ -394,7 +394,7 @@ const filterProduct=async(req,res)=>{
   prodQty=0
   }
 
-  console.log(prodQty)
+  //console.log(prodQty)
   
   
   let filterObj={
@@ -406,10 +406,10 @@ const filterProduct=async(req,res)=>{
   if (category !== "All") {
     filterObj.ProductCategory = category; // Add category filter if not "All"
   }
-  // console.log(q)
+  // //console.log(q)
   let filter=await productModel.find(filterObj)
   res.json(filter)
-  console.log(filter)
+  //console.log(filter)
 
 }
 
