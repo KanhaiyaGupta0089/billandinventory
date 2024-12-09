@@ -138,10 +138,13 @@ const searchProduct = async (req, res) => {
   
   try {
     
-                let result = await productModel.find({
-                  ProductName: new RegExp(searchTerm, "i"),
+                // let result = await productModel.find({
+                //   ProductName: new RegExp(searchTerm, "i"),
                   
-                })
+                // })
+
+              let result=await productModel.find({ ProductName: { $regex:searchTerm, $options: "i" } });
+                
                 res.json(result)
                 
            
