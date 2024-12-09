@@ -356,16 +356,16 @@
                           //console.log(typeof (selectedProduct))
                           let ordQty=1
                           item.onclick = async function () {
-                              let update=await fetch("https://billandinventory.onrender.com/product/update",{
-                                      method:'POST',
-                                      headers:{
-                                          'Content-Type':'application/json'
-                                      },
-                                      body:JSON.stringify({
-                                          productId:result.ProductId,
-                                          quantity:result.ProductQuantity-1
-                                      })
-                                  })
+                             // let update=await fetch("https://billandinventory.onrender.com/product/update",{
+                               //       method:'POST',
+                                 //     headers:{
+                                   //       'Content-Type':'application/json'
+                                     // },
+                                      //body:JSON.stringify({
+                                        //  productId:result.ProductId,
+                                         // quantity:result.ProductQuantity-1
+                                    //  })
+                               //  })
                                   const addProd={
                             'ProductName':result.ProductName,
                             'ProductPrice':result.ProductPrice,
