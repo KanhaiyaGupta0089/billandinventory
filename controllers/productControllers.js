@@ -415,6 +415,28 @@ const filterProduct=async(req,res)=>{
   //console.log(filter)
 
 }
+const updateById=async(req,res)=>{
+  try{
+  let {productId,quantity}=req.body;
+  console.log(req.body)   
+    
+let update=await productModel.updateOne({ProductId:productId},{ProductQuantity:quantity},{new:true})
+console.log(update)
+// let update=await productModel.updateOne({ProductId:productId},{ProductQuantity:quantity},{new:true})
+// let prod=await productModel.findById({ProductId:productId})
+// console.log(prod)
+res.json(update)
+  // if(!update)
+    // return res.send("error can not update product")
+  // res.status(200).json(update)
+
+}catch(err){
+  console.error(err);
+  res.status(500).json({error:err})
+}
+
+  
+}
 
 
 
@@ -432,6 +454,7 @@ module.exports = {
   deleteProduct,
   deleteProduct2,
   renderDelete,
+  updateById,
   updateProduct,
   searchProductById,
   renderUpdate,
