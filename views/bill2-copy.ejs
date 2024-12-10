@@ -356,16 +356,16 @@
                           //console.log(typeof (selectedProduct))
                           let ordQty=1
                           item.onclick = async function () {
-                             // let update=await fetch("https://billandinventory.onrender.com/product/update",{
-                               //       method:'POST',
-                                 //     headers:{
-                                   //       'Content-Type':'application/json'
-                                     // },
-                                      //body:JSON.stringify({
-                                        //  productId:result.ProductId,
-                                         // quantity:result.ProductQuantity-1
-                                    //  })
-                               //  })
+                              // let update=await fetch("https://billandinventory.onrender.com/product/update",{
+                              //         method:'POST',
+                              //         headers:{
+                              //             'Content-Type':'application/json'
+                              //         },
+                              //         body:JSON.stringify({
+                              //             productId:result.ProductId,
+                              //             quantity:result.ProductQuantity-1
+                              //         })
+                              //     })
                                   const addProd={
                             'ProductName':result.ProductName,
                             'ProductPrice':result.ProductPrice,
@@ -373,13 +373,26 @@
                             'ProductId':result.ProductId
                             
 
-                        }
+                            }
+
+                            let update=await fetch("http://localhost:5500/product/update-id",{
+                                      method:'POST',
+                                      headers:{
+                                          'Content-Type':'application/json'
+                                      },
+                                      body:JSON.stringify({
+                                          productId:result.ProductId,
+                                          quantity:result.ProductQuantity-ordQty
+                                      })
+                                  })
+                                  console.log(await update.json())
+
 
                               let searchField = document.querySelector('.find')
                               searchField.value = "";
                               dropdownContainer.style.display = 'none';
                               const index = selectedProduct.findIndex(obj => obj.ProductId == result.ProductId);
-                              //console.log(index)
+                              console.log(index)
 
                               if(index==-1){
                               let trow = document.createElement('tr');
@@ -393,10 +406,14 @@
                             <td class="quantity">${ordQty}</td>
                             
                             `
-
+                            // console.log(ordQty)
                             document.querySelector('.item-entry').appendChild(trow);
 
+                            
+                            
                               selectedProduct.push(addProd)
+
+                              
 
                               //console.log(selectedProduct);
                               }else{
@@ -407,43 +424,7 @@
                               }
 
 
-                              // let keys = ['ProductId', 'ProductName', 'ProductPrice','ProductQuantity']
-                              // let i = 0;
                               
-                              // Object.entries(result).map(entry => {
-
-                              //     let key = entry[0];
-                              //     let value = entry[1];
-                              //     if (selectedProduct.some(product => product[key] === value)){
-                              //     if (keys.includes(key)) {
-                                    
-                              //         let tdata = document.createElement('td');
-                              //         if(key=='ProductPrice')
-                              //         tdata.innerHTML ='₹'+result[keys[i++]];
-                              //       else if(key=='ProductQuantity'){
-                              //       tdata.innerHTML =ordQty;
-                              //       tdata.style='quantity'
-                                    
-                              //       }
-
-                              //       else
-                              //         tdata.innerHTML = result[keys[i++]];
-                              //         trow.appendChild(tdata);
-
-                              //         // //console.log(key, value);
-                              //     }
-                              //   }else{
-                              //     //console.log("equal")
-                              //   }
-                                
-
-
-                              // });
-
-                              // document.querySelector('.item-entry').appendChild(trow);
-
-                              // sessionStorage.setItem('data',JSON.stringify(selectedProduct))
-                              // //console.log(result)
                               let data=await fetch("/bill/create-bill",{
                               method:'POST',
                               headers:{
